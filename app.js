@@ -1,3 +1,4 @@
+import cors from 'cors';
 require('dotenv').config();
 
 const express = require('express');
@@ -7,15 +8,11 @@ const expressJwt = require('express-jwt');
 const userDb = require('./utils/db');
 const token = require('./utils/token');
 
+
 const app = express();
 
-app.all('*', function(req, res, next) {
-  var origin = req.get('origin'); 
-  res.header('Access-Control-Allow-Origin', origin);
-  res.header("Access-Control-Allow-Headers", "X-Requested-With");
-  res.header('Access-Control-Allow-Headers', 'Content-Type');
-  next();
-});
+app.use(cors());
+
 
 app.use(express.json());
 app.use(corsMiddlware());
