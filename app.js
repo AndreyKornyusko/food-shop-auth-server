@@ -10,12 +10,13 @@ const token = require('./utils/token');
 
 
 const app = express();
+app.use(corsMiddlware());
 
-app.use(cors());
+// app.use(cors());
 
 
 app.use(express.json());
-app.use(corsMiddlware());
+// app.use(corsMiddlware());
 
 // Routing
 const router = Router();
