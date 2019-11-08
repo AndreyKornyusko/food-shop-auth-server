@@ -2,13 +2,15 @@ require('dotenv').config();
 
 const express = require('express');
 const { Router } = require('express');
-// const cors = require('cors');
+const cors = require('cors');
 const expressJwt = require('express-jwt');
 const userDb = require('./utils/db');
 const token = require('./utils/token');
 
 
 const app = express();
+
+app.use(cors());
 
 app.use(function(req, res, next) {
   var oneof = false;
@@ -37,7 +39,6 @@ app.use(function(req, res, next) {
   }
 });
 
-// app.use(cors());
 
 // app.options('*', cors());
 
