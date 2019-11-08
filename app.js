@@ -2,7 +2,7 @@ require('dotenv').config();
 
 const express = require('express');
 const { Router } = require('express');
-const cors = require('cors');
+// const cors = require('cors');
 const expressJwt = require('express-jwt');
 const userDb = require('./utils/db');
 const token = require('./utils/token');
@@ -10,10 +10,36 @@ const token = require('./utils/token');
 
 const app = express();
 
-app.use(cors());
-// app.use(corsMiddlware());
+app.use(function(req, res, next) {
+  var oneof = false;
+  if(req.headers.origin) {
+      res.header('Access-Control-Allow-Origin', req.headers.origin);
+      oneof = true;
+  }
+  if(req.headers['access-control-request-method']) {
+      res.header('Access-Control-Allow-Methods', req.headers['access-control-request-method']);
+      oneof = true;
+  }
+  if(req.headers['access-control-request-headers']) {
+      res.header('Access-Control-Allow-Headers', req.headers['access-control-request-headers']);
+      oneof = true;
+  }
+  if(oneof) {
+      res.header('Access-Control-Max-Age', 60 * 60 * 24 * 365);
+  }
 
-app.options('*', cors());
+  // intercept OPTIONS method
+  if (oneof && req.method == 'OPTIONS') {
+      res.send(200);
+  }
+  else {
+      next();
+  }
+});
+
+// app.use(cors());
+
+// app.options('*', cors());
 
 app.use(express.json());
 // app.use(corsMiddlware());
@@ -22,7 +48,7 @@ app.use(express.json());
 const router = Router();
 
 const requireAuth = expressJwt({
-  secret: process.env.JWT_SECRET,
+  secret: process.env.JWT_SECRET, 
   userProperty: 'user'
 });
 
