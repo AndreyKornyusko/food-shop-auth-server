@@ -1,4 +1,3 @@
-import cors from 'cors';
 require('dotenv').config();
 
 const express = require('express');
@@ -10,9 +9,6 @@ const token = require('./utils/token');
 
 
 const app = express();
-// app.use(corsMiddlware());
-
-// app.use(cors());
 
 app.use(express.json());
 app.use(corsMiddlware());
