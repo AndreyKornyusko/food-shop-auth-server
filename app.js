@@ -54,7 +54,7 @@ const requireAuth = expressJwt({
   userProperty: 'user'
 });
 
-router.post('/signup', cors(), (req, res) => {
+router.post('/signup', (req, res) => {
   const { name, email, password } = req.body;
 
   userDb
@@ -72,7 +72,7 @@ router.post('/signup', cors(), (req, res) => {
     });
 });
 
-router.post('/signin',cors(), (req, res) => {
+router.post('/signin', (req, res) => {
   const { email, password } = req.body;
 
   userDb
@@ -90,7 +90,7 @@ router.post('/signin',cors(), (req, res) => {
     });
 });
 
-router.post('/signout',cors(), (req, res) => {
+router.post('/signout', (req, res) => {
   const t = req.headers.authorization;
   const decoded = token.verify(t);
 
@@ -107,7 +107,7 @@ router.post('/signout',cors(), (req, res) => {
   }
 });
 
-router.get('/current',cors(), requireAuth, (req, res) => {
+router.get('/current', requireAuth, (req, res) => {
   const { id } = req.user;
 
   userDb
@@ -122,7 +122,7 @@ router.get('/current',cors(), requireAuth, (req, res) => {
     });
 });
 
-app.use('/auth',cors(), router);
+app.use('/auth', router);
 
 app.listen(4040, () => {
   console.log('Server is listening on port 4040');
