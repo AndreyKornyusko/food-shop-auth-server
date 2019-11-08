@@ -13,6 +13,8 @@ const app = express();
 app.use(cors());
 // app.use(corsMiddlware());
 
+app.options('*', cors());
+
 app.use(express.json());
 // app.use(corsMiddlware());
 
