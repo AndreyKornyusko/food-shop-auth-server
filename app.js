@@ -6,7 +6,7 @@ const cors = require('cors');
 const expressJwt = require('express-jwt');
 const userDb = require('./utils/db');
 const token = require('./utils/token');
-
+const port = process.env.PORT || 3000;
 
 const app = express();
 
@@ -124,6 +124,6 @@ router.get('/current', requireAuth, (req, res) => {
 
 app.use('/auth', router);
 
-app.listen(4040, () => {
-  console.log('Server is listening on port 4040');
+app.listen(port, () => {
+  console.log('Server is listening on port 3000');
 });
