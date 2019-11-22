@@ -1,6 +1,7 @@
 require('dotenv').config();
 
 const express = require('express');
+const http = require('http');
 const { Router } = require('express');
 const cors = require('cors');
 const expressJwt = require('express-jwt');
@@ -10,10 +11,11 @@ const port = process.env.PORT || 3000;
 
 const app = express();
 
+http.createServer(app).listen(app.get(port), function () { console.log('Server listen port', port) })
+
 app.use(cors());
+app.options('*', cors());
 
-
-// app.options('*', cors());
 
 app.use(express.json());
 // app.use(corsMiddlware());
@@ -22,7 +24,7 @@ app.use(express.json());
 const router = Router();
 
 const requireAuth = expressJwt({
-  secret: process.env.JWT_SECRET, 
+  secret: process.env.JWT_SECRET,
   userProperty: 'user'
 });
 
