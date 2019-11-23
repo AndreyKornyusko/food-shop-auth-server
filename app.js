@@ -7,11 +7,14 @@ const cors = require('cors');
 const expressJwt = require('express-jwt');
 const userDb = require('./utils/db');
 const token = require('./utils/token');
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 80;
 
 const app = express();
 
-http.createServer(app).listen(app.get(port), function () { console.log('Server listen port', port) })
+app.set(port)
+
+// http.createServer(app).listen(app.get(port),
+//   function () { console.log('Server listen port', port) })
 
 app.use(cors());
 app.options('*', cors());
@@ -21,7 +24,7 @@ app.use(express.json());
 // app.use(corsMiddlware());
 
 // Routing
-const router = Router();
+const router = Router(); 
 
 const requireAuth = expressJwt({
   secret: process.env.JWT_SECRET,
@@ -99,5 +102,5 @@ router.get('/current', requireAuth, (req, res) => {
 app.use('/auth', router);
 
 app.listen(port, () => {
-  console.log('Server is listening on port 3000');
+  console.log('Server is listening on port 80');
 });

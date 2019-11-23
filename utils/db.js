@@ -9,7 +9,7 @@ const find = (email, password) => {
     user => user.email === email && user.password === password
   );
 
-  console.log('user: ', user);
+  console.log('user: ', user); 
 
   return user ? Promise.resolve(user) : Promise.reject('User not found');
 };
