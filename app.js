@@ -90,6 +90,6 @@ router.get('/current', requireAuth, (req, res) => {
 
 app.use('/auth', router);
 
-app.listen(443, () => {
-  console.log('Server is listening on port 443');
+app.listen(3000, () => {
+  console.log('Server is listening on port 3000');
 });
