@@ -21,24 +21,23 @@ const requireAuth = expressJwt({
   userProperty: 'user'
 });
 
-app.post('/signup', (req, res) => {
-  const { name, email, password } = req.body;
+// router.post('/signup', (req, res) => {
+//   const { name, email, password } = req.body;
 
-  userDb
-    .add({ name, email, password })
-    .then(({ id, name, email }) => {
-console.log('id, name, email', id , name , email)
-      // res.status(201).json({
-      //   user: { id, name, email },
-      //   token: token.generate(id)
-      // });
-    })
-    .catch(error => {
-      res.status(409).json({
-        message: error
-      });
-    });
-});
+//   userDb
+//     .add({ name, email, password })
+//     .then(({ id, name, email }) => {
+//       res.status(201).json({
+//         user: { id, name, email },
+//         token: token.generate(id)
+//       });
+//     })
+//     .catch(error => {
+//       res.status(409).json({
+//         message: error
+//       });
+//     });
+// });
 
 // router.post('/signin', (req, res) => {
 //   const { email, password } = req.body;
@@ -75,20 +74,20 @@ console.log('id, name, email', id , name , email)
 //   }
 // });
 
-// router.get('/current', requireAuth, (req, res) => {
-//   const { id } = req.user;
+router.get('/current', requireAuth, (req, res) => {
+  const { id } = req.user;
 
-//   userDb
-//     .getById(id)
-//     .then(user => {
-//       res.status(200).json({ user });
-//     })
-//     .catch(error => {
-//       res.status(500).json({
-//         message: error
-//       });
-//     });
-// });
+  userDb
+    .getById(id)
+    .then(user => {
+      res.status(200).json({ user });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: error
+      });
+    });
+});
 
 // app.use('/auth', router);
 
