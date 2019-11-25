@@ -16,10 +16,10 @@ app.use(express.json());
 // Routing
 const router = Router();
 
-const requireAuth = expressJwt({
-  secret: process.env.JWT_SECRET,
-  userProperty: 'user'
-});
+// const requireAuth = expressJwt({
+//   secret: process.env.JWT_SECRET,
+//   userProperty: 'user'
+// });
 
 // router.post('/signup', (req, res) => {
 //   const { name, email, password } = req.body;
@@ -74,23 +74,23 @@ const requireAuth = expressJwt({
 //   }
 // });
 
-router.get('/current', requireAuth, (req, res) => {
-  const { id } = req.user;
+// router.get('/current', requireAuth, (req, res) => {
+//   const { id } = req.user;
 
-  userDb
-    .getById(id)
-    .then(user => {
-      res.status(200).json({ user });
-    })
-    .catch(error => {
-      res.status(500).json({
-        message: error
-      });
-    });
-});
+//   userDb
+//     .getById(id)
+//     .then(user => {
+//       res.status(200).json({ user });
+//     })
+//     .catch(error => {
+//       res.status(500).json({
+//         message: error
+//       });
+//     });
+// });
 
 // app.use('/auth', router);
 
 app.listen(PORT, () => {
-  console.log('Server is listening on port 3002');
+  console.log(`Сервер запущен на порту ${PORT}`);
 });
