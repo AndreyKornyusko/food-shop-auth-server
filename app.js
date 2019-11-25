@@ -6,6 +6,7 @@ const cors = require('cors');
 const expressJwt = require('express-jwt');
 const userDb = require('./utils/db');
 const token = require('./utils/token');
+const PORT = process.env.PORT || 3002;
 
 const app = express();
 
@@ -91,6 +92,6 @@ console.log('id, name, email', id , name , email)
 
 // app.use('/auth', router);
 
-app.listen(3002, () => {
+app.listen(PORT, () => {
   console.log('Server is listening on port 3002');
 });
