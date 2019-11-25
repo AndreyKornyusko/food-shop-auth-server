@@ -88,7 +88,7 @@ app.get('/current', requireAuth, (req, res) => {
     });
 });
 
-app.use('/auth', app);
+// app.use('/auth', app);
 
 app.listen(3000, () => {
   console.log('Server is listening on port 3000');
