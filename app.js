@@ -16,10 +16,10 @@ app.use(express.json());
 // Routing
 const router = Router();
 
-// const requireAuth = expressJwt({
-//   secret: process.env.JWT_SECRET,
-//   userProperty: 'user'
-// });
+const requireAuth = expressJwt({
+  secret: process.env.JWT_SECRET,
+  userProperty: 'user'
+});
 
 // router.post('/signup', (req, res) => {
 //   const { name, email, password } = req.body;
