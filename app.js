@@ -21,58 +21,58 @@ const requireAuth = expressJwt({
   userProperty: 'user'
 });
 
-// router.post('/signup', (req, res) => {
-//   const { name, email, password } = req.body;
+router.post('/signup', (req, res) => {
+  const { name, email, password } = req.body;
 
-//   userDb
-//     .add({ name, email, password })
-//     .then(({ id, name, email }) => {
-//       res.status(201).json({
-//         user: { id, name, email },
-//         token: token.generate(id)
-//       });
-//     })
-//     .catch(error => {
-//       res.status(409).json({
-//         message: error
-//       });
-//     });
-// });
+  userDb
+    .add({ name, email, password })
+    .then(({ id, name, email }) => {
+      res.status(201).json({
+        user: { id, name, email },
+        token: token.generate(id)
+      });
+    })
+    .catch(error => {
+      res.status(409).json({
+        message: error
+      });
+    });
+});
 
-// router.post('/signin', (req, res) => {
-//   const { email, password } = req.body;
+router.post('/signin', (req, res) => {
+  const { email, password } = req.body;
 
-//   userDb
-//     .find(email, password)
-//     .then(({ id, name, email }) => {
-//       res.status(200).json({
-//         user: { id, name, email },
-//         token: token.generate(id)
-//       });
-//     })
-//     .catch(error => {
-//       res.status(404).json({
-//         message: error
-//       });
-//     });
-// });
+  userDb
+    .find(email, password)
+    .then(({ id, name, email }) => {
+      res.status(200).json({
+        user: { id, name, email },
+        token: token.generate(id)
+      });
+    })
+    .catch(error => {
+      res.status(404).json({
+        message: error
+      });
+    });
+});
 
-// router.post('/signout', (req, res) => {
-//   const t = req.headers.authorization;
-//   const decoded = token.verify(t);
+router.post('/signout', (req, res) => {
+  const t = req.headers.authorization;
+  const decoded = token.verify(t);
 
-//   if (decoded) {
-//     // Все классно, удаляем токен из редиски или leveldb или еще откуда
-//     res.status(200).json({
-//       message: 'Logout success'
-//     });
-//   } else {
-//     // Токен не валидный, отправляем репорт опсам чтобы разобрались кто пытался кинуть нам грязный токен
-//     res.status(500).json({
-//       message: 'Gachi is manly!'
-//     });
-//   }
-// });
+  if (decoded) {
+    // Все классно, удаляем токен из редиски или leveldb или еще откуда
+    res.status(200).json({
+      message: 'Logout success'
+    });
+  } else {
+    // Токен не валидный, отправляем репорт опсам чтобы разобрались кто пытался кинуть нам грязный токен
+    res.status(500).json({
+      message: 'Gachi is manly!'
+    });
+  }
+});
 
 router.get('/current', requireAuth, (req, res) => {
   const { id } = req.user;
