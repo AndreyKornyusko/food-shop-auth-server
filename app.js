@@ -1,30 +1,19 @@
 require('dotenv').config();
 
 const express = require('express');
-const http = require('http');
 const { Router } = require('express');
 const cors = require('cors');
 const expressJwt = require('express-jwt');
 const userDb = require('./utils/db');
 const token = require('./utils/token');
-const port = process.env.PORT || 80;
 
 const app = express();
 
-app.set(port)
-
-// http.createServer(app).listen(app.get(port),
-//   function () { console.log('Server listen port', port) })
-
 app.use(cors());
-app.options('*', cors());
-
-
 app.use(express.json());
-// app.use(corsMiddlware());
 
 // Routing
-const router = Router(); 
+const router = Router();
 
 const requireAuth = expressJwt({
   secret: process.env.JWT_SECRET,
@@ -101,6 +90,6 @@ router.get('/current', requireAuth, (req, res) => {
 
 app.use('/auth', router);
 
-app.listen(port, () => {
-  console.log('Server is listening on port 80');
+app.listen(4040, () => {
+  console.log('Server is listening on port 4040');
 });
