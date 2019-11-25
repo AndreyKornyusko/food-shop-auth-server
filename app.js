@@ -74,22 +74,22 @@ const router = Router();
 //   }
 // });
 
-// router.get('/current', requireAuth, (req, res) => {
-//   const { id } = req.user;
+router.get('/current', requireAuth, (req, res) => {
+  const { id } = req.user;
 
-//   userDb
-//     .getById(id)
-//     .then(user => {
-//       res.status(200).json({ user });
-//     })
-//     .catch(error => {
-//       res.status(500).json({
-//         message: error
-//       });
-//     });
-// });
+  userDb
+    .getById(id)
+    .then(user => {
+      res.status(200).json({ user });
+    })
+    .catch(error => {
+      res.status(500).json({
+        message: error
+      });
+    });
+});
 
-// app.use('/auth', router);
+app.use('/auth', router);
 
 app.listen(PORT, () => {
   console.log(`Сервер запущен на порту ${PORT}`);
