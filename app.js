@@ -29,12 +29,14 @@ router.post('/signup', (req, res) => {
     .then(({ id, name, email }) => {
       res.status(201).json({
         user: { id, name, email },
-        token: token.generate(id)
+        token: token.generate(id),
+        status: 201
       });
     })
     .catch(error => {
       res.status(409).json({
-        message: error
+        message: error,
+        status: 409
       });
     });
 });
@@ -47,12 +49,14 @@ router.post('/signin', (req, res) => {
     .then(({ id, name, email }) => {
       res.status(200).json({
         user: { id, name, email },
-        token: token.generate(id)
+        token: token.generate(id),
+        status: 200
       });
     })
     .catch(error => {
       res.status(404).json({
-        message: error
+        message: error,
+        status:404
       });
     });
 });
@@ -64,12 +68,14 @@ router.post('/signout', (req, res) => {
   if (decoded) {
     // Все классно, удаляем токен из редиски или leveldb или еще откуда
     res.status(200).json({
-      message: 'Logout success'
+      message: 'Logout success',
+      status: 200
     });
   } else {
     // Токен не валидный, отправляем репорт опсам чтобы разобрались кто пытался кинуть нам грязный токен
     res.status(500).json({
-      message: 'Gachi is manly!'
+      message: 'Gachi is manly!',
+      status:500
     });
   }
 });
@@ -80,11 +86,14 @@ router.get('/current', requireAuth, (req, res) => {
   userDb
     .getById(id)
     .then(user => {
-      res.status(200).json({ user });
+      res.status(200).json({ user,
+        status: 200
+       });
     })
     .catch(error => {
       res.status(500).json({
-        message: error
+        message: error,
+        status: 500
       });
     });
 });
